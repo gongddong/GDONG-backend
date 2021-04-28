@@ -18,18 +18,22 @@ services:
       - postgres:postgres
     volumes:
       - .:/app
-      - /app/node_modules
-    # restart: unless-stopped
+      # - /app/node_modules
+    restart: unless-stopped
 
   postgres:
     image: postgres:alpine
     restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - ./environments/.env.dev
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PW}
+      POSTGRES_DB: ${DB_NAME}
     networks:
       - webnet
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: gdong
 
   redis:
     container_name: redis

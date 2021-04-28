@@ -18,12 +18,22 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "dc:build": "docker-compose --env-file ./environments/.env.dev build",
+    "dc:up": "docker-compose --env-file ./environments/.env.dev up",
+    "dc:stop": "docker-compose stop",
+    "dc:rm": "docker-compose rm"
   },
   "dependencies": {
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/platform-fastify": "^7.6.15",
+    "@nestjs/swagger": "^4.8.0",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
+    "fastify-swagger": "^4.7.0",
+    "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6",

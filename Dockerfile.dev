@@ -1,7 +1,7 @@
 FROM node:14
 WORKDIR /app
 
-COPY . .
+COPY ./src ./environments ./package.json ./tsconfig.json ./yarn.lock ./nest-cli.json ./
 RUN yarn install --frozen-lockfile
 
 CMD ["yarn", "start:dev"]

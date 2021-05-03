@@ -1,18 +1,12 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from '../database/database.module';
 import { UserService } from './user.service';
-import { Connection } from 'typeorm';
 import { User } from './user.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserController } from './user.controller';
 
 @Module({
-  imports: [DatabaseModule],
-  providers: [
-    UserService,
-    {
-      provide: 'USER_REPOSITORY',
-      useFactory: (connection: Connection) => connection.getRepository(User),
-      inject: ['DATABASE_CONNECTION'],
-    },
-  ],
+  imports: [TypeOrmModule.forFeature([User])],
+  providers: [UserService],
+  controllers: [UserController],
 })
 export class UserModule {}

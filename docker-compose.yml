@@ -34,12 +34,30 @@ services:
       POSTGRES_DB: ${DB_NAME}
     networks:
       - webnet
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
 
   redis:
     container_name: redis
     image: redis:5
     networks:
       - webnet
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - ./pgadmin:/root/.pgadmin
+    ports:
+      - '${PGADMIN_PORT:-5050}:80'
+    depends_on:
+      - postgres
+    networks:
+      - webnet
+    restart: unless-stopped
 
 networks:
   webnet:
